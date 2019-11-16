@@ -3,37 +3,39 @@ import 'package:flutter/material.dart';
 
 abstract class SpecialTextSpanBuilder {
   //build text span to specialText
-  TextSpan build(String data,
+  TextSpan build(BuildContext context, String data,
       {TextStyle textStyle, SpecialTextGestureTapCallback onTap}) {
     if (data == null || data == "") return null;
     List<InlineSpan> inlineList = new List<InlineSpan>();
     if (data.length > 0) {
       SpecialText specialText;
-      String textStack = "";
+      StringBuffer textStack = StringBuffer();
+      //String textStack = "";
       //String text
       for (int i = 0; i < data.length; i++) {
         String char = data[i];
-        textStack += char;
+        textStack.write(char);
         if (specialText != null) {
-          if (!specialText.isEnd(textStack)) {
+          if (!specialText.isEnd(textStack.toString())) {
             specialText.appendContent(char);
           } else {
             inlineList.add(specialText.finishText());
             specialText = null;
-            textStack = "";
+            textStack.clear();
           }
         } else {
-          specialText = createSpecialText(textStack,
+          String text = textStack.toString();
+          specialText = createSpecialText(context, text,
               textStyle: textStyle, onTap: onTap, index: i);
           if (specialText != null) {
             if (textStack.length - specialText.startFlag.length >= 0) {
-              textStack = textStack.substring(
+              text = text.substring(
                   0, textStack.length - specialText.startFlag.length);
               if (textStack.length > 0) {
-                inlineList.add(TextSpan(text: textStack, style: textStyle));
+                inlineList.add(TextSpan(text: text, style: textStyle));
               }
             }
-            textStack = "";
+            textStack.clear();
           }
         }
       }
@@ -43,7 +45,7 @@ abstract class SpecialTextSpanBuilder {
             text: specialText.startFlag + specialText.getContent(),
             style: textStyle));
       } else if (textStack.length > 0) {
-        inlineList.add(TextSpan(text: textStack, style: textStyle));
+        inlineList.add(TextSpan(text: textStack.toString(), style: textStyle));
       }
     } else {
       inlineList.add(TextSpan(text: data, style: textStyle));
@@ -53,7 +55,7 @@ abstract class SpecialTextSpanBuilder {
   }
 
   //build SpecialText base on startflag
-  SpecialText createSpecialText(String flag,
+  SpecialText createSpecialText(BuildContext context, String flag,
       {TextStyle textStyle, SpecialTextGestureTapCallback onTap, int index});
 
   /// start with SpecialText

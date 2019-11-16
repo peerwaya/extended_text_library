@@ -1,0 +1,10 @@
+#!/bin/sh
+# This is a generated file; do not edit or check into version control.
+export "FLUTTER_ROOT=/Users/evenmatrix/Desktop/sdks/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/evenmatrix/Desktop/project/gotok_workspace/gotok_libs/extended_text_library/example"
+export "FLUTTER_TARGET=lib/main.dart"
+export "FLUTTER_BUILD_DIR=build"
+export "SYMROOT=${SOURCE_ROOT}/../build/ios"
+export "FLUTTER_FRAMEWORK_DIR=/Users/evenmatrix/Desktop/sdks/flutter/bin/cache/artifacts/engine/ios"
+export "FLUTTER_BUILD_NAME=1.0.0"
+export "FLUTTER_BUILD_NUMBER=1"
